@@ -26,8 +26,9 @@ def main(team_id, outfile, season, game_type):
     print('Loading {0} player stats'.format(name))
     context['roster'] = Roster(season, game_type, team_id)
 
-    print('Loading {0} Starting Lines'.format(name))
-    context['lines'] = get_lines()
+    if team_id == 30:
+        print('Loading {0} Starting Lines'.format(name))
+        context['lines'] = get_lines()
 
     context['playoffs'] = game_type == 3
 

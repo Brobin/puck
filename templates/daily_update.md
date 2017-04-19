@@ -37,9 +37,9 @@
 
 # [](##NHLTINY) NHL Team Stats
 
-| [](##NHLTINY) | GP | W | L | {% if not playoffs %}OT | P | ROW | P% |{% endif %} Diff | PP% | PK% | FOW% |
-|---|---|---|---|{% if not playoffs %}---|---|---|---|{% endif %}---|---|---|---|{% for t in nhl.teams %}
-| [](##{{ t.teamAbbrev }}TINY) {{ t.teamFullName }} | {{ t.gamesPlayed|int }} | {{ t.wins|int }} | {{ t.losses|int }} |{% if not playoffs %} {{ t.otLosses|int }} | {{ t.points|int }} | {{ t.regPlusOtWins|int }} | {{ '%0.3f'|format(t.pointPctg) }} |{% endif %} {{ t.diff|int }} | {{ '%0.1f'|format(t.ppPctg*100) }} | {{ '%0.1f'|format(t.pkPctg*100) }} | {{ '%0.1f'|format(t.faceoffWinPctg*100) }} |{% endfor %}
+| [](##NHLTINY) | | GP | W | L | {% if not playoffs %}OT | P | ROW | P% |{% endif %} Diff | PP% | PK% | FOW% |
+|---|---|---|---|---|{% if not playoffs %}---|---|---|---|{% endif %}---|---|---|---|{% for t in nhl.teams %}
+| [](##{{ t.teamAbbrev }}TINY) | {{ t.teamFullName }} | {{ t.gamesPlayed|int }} | {{ t.wins|int }} | {{ t.losses|int }} |{% if not playoffs %} {{ t.otLosses|int }} | {{ t.points|int }} | {{ t.regPlusOtWins|int }} | {{ '%0.3f'|format(t.pointPctg) }} |{% endif %} {{ t.diff|int }} | {{ '%0.1f'|format(t.ppPctg*100) }} | {{ '%0.1f'|format(t.pkPctg*100) }} | {{ '%0.1f'|format(t.faceoffWinPctg*100) }} |{% endfor %}
 
 &nbsp;
 
