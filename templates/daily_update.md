@@ -5,6 +5,15 @@
 ## **Venue**: {{ g.venue }}
 ## **Broadcasts**: {{ g.broadcasts }}
 
+{% if lines %}Projected Lines
+
+| [](##MINTINY) | LW | C | RW | [](##MINTINY) | D | D | [](##MINTINY) | Goalie |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **1** | {{ lines.f1.0 }} | {{ lines.f1.1 }} | {{ lines.f1.2 }}  | **1** | {{ lines.d1.0 }} | {{ lines.d1.1 }} | **Start** | {{ lines.g1.0 }} |
+| **2** | {{ lines.f2.0 }} | {{ lines.f2.1 }} | {{ lines.f2.2 }}  | **2** | {{ lines.d2.0 }} | {{ lines.d2.1 }} | **Backup** | {{ lines.g1.1 }} |
+| **3** | {{ lines.f3.0 }} | {{ lines.f3.1 }} | {{ lines.f3.2 }}  | **3** | {{ lines.d3.0 }} | {{ lines.d3.1 }} | | |
+| **4** | {{ lines.f4.0 }} | {{ lines.f4.1 }} | {{ lines.f4.2 }}  | | | |  | |{% endif %}
+
 -----
 {% endif %}
 

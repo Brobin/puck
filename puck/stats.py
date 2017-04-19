@@ -18,11 +18,12 @@ class NHL(object):
     """
 
     def __init__(self, season, game_type):
+        playoffs = game_type == 3
         self.season = season
         self.game_type = game_type
         # Load all of the data and compute league avg and leader
         self.teams = self.retrieve_data()
-        if game_type != 3:  # if we're not in the playoffs
+        if not playoffs:  # if we're not in the playoffs
             self.leader = self.get_league_leaders()
             self.average = self.get_league_average()
             # Add leader and avg to league and sort
@@ -36,8 +37,11 @@ class NHL(object):
             if team['teamAbbrev'] in TEAM_TRANSLATION.keys():
                 team['teamAbbrev'] = TEAM_TRANSLATION[team['teamAbbrev']]
 
-        # Sort teams by points
-        self.teams.sort(key=lambda x: x['points'], reverse=True)
+        # Sort teams by wins, then points
+        if playoffs:
+            self.teams.sort(key=lambda x: x['wins'], reverse=True)
+        else:
+            self.teams.sort(key=lambda x: x['points'], reverse=True)
 
     def retrieve_data(self):
         # pull the stats from the API

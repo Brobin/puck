@@ -34,7 +34,7 @@ TEAMS = {
     },
     5: {
         'abbreviation': 'PIT',
-        'name': 'Pittsbrgh Pengins',
+        'name': 'Pittsburgh Penguins',
         'subreddit': '/r/penguins'
     },
     6: {
