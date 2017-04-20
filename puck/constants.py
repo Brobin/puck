@@ -2,7 +2,7 @@ TEAMS_URL = 'http://www.nhl.com/stats/rest/grouped/team/basic/season/teamsummary
 SKATER_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/basic/season/skatersummary?cayenneExp=seasonId={0} and gameTypeId={1} and teamId={2}'  # NOQA
 SKATER_EXTRA_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/basic/season/realtime?cayenneExp=seasonId={0} and gameTypeId={1} and teamId={2}'  # NOQA
 GOALIE_URL = 'http://www.nhl.com/stats/rest/grouped/goalies/goalie_basic/season/goaliesummary?cayenneExp=seasonId={0} and gameTypeId={1} and playerPositionCode="G" and teamId={2}'  # NOQA
-SCHEDULE_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?expand=schedule.broadcasts.all&teamId={0}&startDate={1}&endDate={1}'  # NOQA
+SCHEDULE_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?expand=schedule.broadcasts.all,schedule.linescore&teamId={0}&startDate={1}&endDate={1}'  # NOQA
 
 TEAM_TRANSLATION = {
     'LAK': 'LA',

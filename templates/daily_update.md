@@ -1,5 +1,5 @@
 {% if schedule.todays_game %}{% set g=schedule.todays_game %}
-# [](##{{ g.homeAbbrev }}90) {{ g.home }} vs. {{ g.away }} [](##{{ g.awayAbbrev }}90)
+# [](##{{ g.homeAbbrev }}90) {{ g.home.team.name }} vs. {{ g.away.team.name }} [](##{{ g.awayAbbrev }}90)
 
 ## **Puck Drop**: {{ g.puckDrop }}
 ## **Venue**: {{ g.venue }}
@@ -13,6 +13,23 @@
 | **2** | {{ lines.f2.0 }} | {{ lines.f2.1 }} | {{ lines.f2.2 }}  | **2** | {{ lines.d2.0 }} | {{ lines.d2.1 }} | **Backup** | {{ lines.g1.1 }} |
 | **3** | {{ lines.f3.0 }} | {{ lines.f3.1 }} | {{ lines.f3.2 }}  | **3** | {{ lines.d3.0 }} | {{ lines.d3.1 }} | | |
 | **4** | {{ lines.f4.0 }} | {{ lines.f4.1 }} | {{ lines.f4.2 }}  | | | |  | |{% endif %}
+
+-----
+{% endif %}{% if schedule.yesterdays_game %}{% set g=schedule.yesterdays_game %}
+# Yesterday's Game
+
+## [](##{{ g.homeAbbrev }}TINY) {{ g.home.team.name }} vs. {{ g.away.team.name }} [](##{{ g.awayAbbrev }}TINY)
+
+{% set p=g.linescore.currentPeriod %}{% set score=g.linescore.periods %}
+| [](##NHLTINY) | 1 | 2 | 3 {% if p >= 4 %}| OT{% endif %} {% if p >= 5 %}| SO{% endif %} | F |
+|---|---|---|---{% if p >= 4 %}|---{% endif %}{% if p >= 4 %}|---{% endif %}|---|
+| [](##{{ g.homeAbbrev }}TINY) {{ g.home.team.name }} |  {{ score.0.home.goals }} |  {{ score.1.home.goals }} |  {{ score.2.home.goals }} {% if p >= 4 %}| {{ score.3.home.goals }} {% endif %}{% if p >= 5 %}|  {{ score.4.home.goals }} {% endif %}| {{ g.home.score }} |
+| [](##{{ g.awayAbbrev }}TINY) {{ g.away.team.name }} |  {{ score.0.away.goals }} |  {{ score.1.away.goals }} |  {{ score.2.away.goals }} {% if p >= 4 %}| {{ score.3.away.goals }} {% endif %}{% if p >= 5 %}|  {{ score.4.away.goals }} {% endif %}| {{ g.away.score }} |
+
+&nbsp;
+
+| Period | [](##MINTINY) | |
+|---|---|---|
 
 -----
 {% endif %}

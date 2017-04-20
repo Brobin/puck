@@ -1,6 +1,6 @@
 import requests
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from pytz import timezone
 
 from puck.constants import SCHEDULE_URL, TEAMS
@@ -12,12 +12,19 @@ class Schedule(object):
         self.team_id = team_id
 
         self.todays_game = self.get_todays_game()
-        self.yesterdays_game = self.get_todays_game()
+        self.yesterdays_game = self.get_yesterdays_game()
 
     def get_todays_game(self):
         today = datetime.now()
-        date = today.strftime('%Y-%m-%d')
-        url = SCHEDULE_URL.format(self.team_id, date)
+        return self.get_game_data(today)
+
+    def get_yesterdays_game(self):
+        yesterday = datetime.now() - timedelta(days=1)
+        return self.get_game_data(yesterday)
+
+    def get_game_data(self, game_datetime):
+        game_date = game_datetime.strftime('%Y-%m-%d')
+        url = SCHEDULE_URL.format(self.team_id, game_date)
         games = requests.get(url).json()
         if len(games['dates']) == 0:
             return False
@@ -25,23 +32,19 @@ class Schedule(object):
         if len(games) == 0:
             return False
         game_data = games[0]
-        return self.parse_game_data(game_data)
-
-    def get_yesterdays_game(self):
-        return {}
-
-    def parse_game_data(self, game_data):
         game = {}
         game['venue'] = game_data['venue']['name']
         game['broadcasts'] = ', '.join([b['name'] for b in game_data['broadcasts']])
-        home = game_data['teams']['home']['team']
-        away = game_data['teams']['away']['team']
-        game['home'] = home['name']
-        game['away'] = away['name']
-        game['homeAbbrev'] = TEAMS.get(home['id'])['abbreviation']
-        game['awayAbbrev'] = TEAMS.get(away['id'])['abbreviation']
+        home = game_data['teams']['home']
+        away = game_data['teams']['away']
+        game['home'] = home
+        game['away'] = away
+
+        game['homeAbbrev'] = TEAMS.get(home['team']['id'])['abbreviation']
+        game['awayAbbrev'] = TEAMS.get(away['team']['id'])['abbreviation']
         date = datetime.strptime(game_data['gameDate'], '%Y-%m-%dT%H:%M:%SZ')
         utc = timezone('UTC').localize(date)
         date = utc.astimezone(timezone('US/Central'))
-        game['puckDrop'] = datetime.strftime(date, "%I:%M %p")
+        game['puckDrop'] = date.strftime("%I:%M %p")
+        game['linescore'] = game_data['linescore']
         return game
