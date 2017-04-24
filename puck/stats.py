@@ -6,6 +6,7 @@ from puck.constants import (
     SKATER_EXTRA_URL,
     TEAMS_URL,
     TEAM_TRANSLATION,
+    TEAMS,
 )
 
 
@@ -36,12 +37,19 @@ class NHL(object):
             # Translate the team abbreviations
             if team['teamAbbrev'] in TEAM_TRANSLATION.keys():
                 team['teamAbbrev'] = TEAM_TRANSLATION[team['teamAbbrev']]
+            self.get_subreddit(team)
 
         # Sort teams by wins, then points
         if playoffs:
             self.teams.sort(key=lambda x: x['wins'], reverse=True)
         else:
             self.teams.sort(key=lambda x: x['points'], reverse=True)
+
+    def get_subreddit(self, team):
+        for i, t in TEAMS.items():
+            if t['abbreviation'] == team['teamAbbrev']:
+                team['subreddit'] = t['subreddit']
+                return
 
     def retrieve_data(self):
         # pull the stats from the API

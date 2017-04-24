@@ -41,7 +41,9 @@ class Schedule(object):
         game['away'] = away
 
         game['homeAbbrev'] = TEAMS.get(home['team']['id'])['abbreviation']
+        game['homeSubreddit'] = TEAMS.get(home['team']['id'])['subreddit']
         game['awayAbbrev'] = TEAMS.get(away['team']['id'])['abbreviation']
+        game['awaySubreddit'] = TEAMS.get(away['team']['id'])['subreddit']
         date = datetime.strptime(game_data['gameDate'], '%Y-%m-%dT%H:%M:%SZ')
         utc = timezone('UTC').localize(date)
         date = utc.astimezone(timezone('US/Central'))
