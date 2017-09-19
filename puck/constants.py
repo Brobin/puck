@@ -161,5 +161,10 @@ TEAMS = {
         'abbreviation': 'ARI',
         'name': 'Arizona Coyotes',
         'subreddit': '/r/coyotes'
+    },
+    54: {
+        'abbreviation': 'VGK',
+        'name': 'Vegas Golden Knights',
+        'subreddit': '/r/goldenknights'
     }
 }

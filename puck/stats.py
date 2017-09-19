@@ -32,6 +32,11 @@ class NHL(object):
             self.teams.append(self.average)
 
         for team in self.teams:
+            for key in team:
+                if not team[key]:
+                    team[key] = 0
+
+        for team in self.teams:
             # add diff
             team['diff'] = team['goalsFor'] - team['goalsAgainst']
             # Translate the team abbreviations
@@ -69,7 +74,7 @@ class NHL(object):
         leader = {}
         for key in self.keys():
             reverse = key not in ['losses']
-            team_stats = sorted([t[key] for t in self.teams], reverse=reverse)
+            team_stats = sorted([t[key] or 0 for t in self.teams], reverse=reverse)
             leader[key] = team_stats[0]
         leader['teamAbbrev'] = 'NHL'
         leader['teamFullName'] = '**NHL Leader**'
@@ -79,7 +84,7 @@ class NHL(object):
         # Get the league average for every stat
         average = {}
         for key in self.keys():
-            team_stats = [t[key] for t in self.teams]
+            team_stats = [t[key] or 0 for t in self.teams]
             average[key] = sum(team_stats) / len(team_stats)
         average['teamAbbrev'] = 'NHL'
         average['teamFullName'] = '**NHL Average**'

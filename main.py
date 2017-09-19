@@ -9,6 +9,8 @@ from puck.lines import get_lines
 from puck.schedule import Schedule
 from puck.stats import NHL, Roster
 
+GET_LINES = False
+
 
 def main(team_id, outfile, season, game_type):
     context = {}
@@ -26,7 +28,7 @@ def main(team_id, outfile, season, game_type):
     print('Loading {0} player stats'.format(name))
     context['roster'] = Roster(season, game_type, team_id)
 
-    if team_id == 30:
+    if team_id == 30 and GET_LINES:
         print('Loading {0} Starting Lines'.format(name))
         context['lines'] = get_lines()
 
@@ -54,8 +56,8 @@ if __name__ == '__main__':
         help='team id for the report, defaults to Wild'
     )
     parser.add_argument(
-        '--season', type=str, default='20162017',
-        help='season for the report, e.g. 20162017'
+        '--season', type=str, default='20172018',
+        help='season for the report, e.g. 20172018'
     )
     parser.add_argument(
         '--playoffs', dest='playoffs', action='store_true',
