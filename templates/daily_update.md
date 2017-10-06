@@ -36,9 +36,9 @@
 
 # [](##{{ team.abbreviation }}TINY)[]({{ team.subreddit }}) {{ team.name }} Skater Stats
 
-| [](##{{ team.abbreviation }}TINY) []({{ team.subreddit }}) | Pos | GP | G | A | P | +/- | B | H | PIM | ATOI | PPG | PPA | S | S% | FOW% |
+| [](##{{ team.abbreviation }}TINY) []({{ team.subreddit }}) | Pos | GP | G | A | P | +/- | B | H | PIM | ATOI | PPG | PPA | S | S% | FOW% | CF% | FF% |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|{% for p in roster.skaters %}
-| {{ p.playerName }} | {{ p.playerPositionCode }} | {{ p.gamesPlayed }} | {{ p.goals }} | {{ p.assists }} | {{ p.points }} | {{ p.plusMinus }} | {{ p.blockedShots }} | {{ p.hits }} | {{ p.penaltyMinutes }} | {{ p.atoi }} | {{ p.ppGoals }} | {{ p.ppAssists }} | {{ p.shots }} | {{ '%0.1f'|format(p.shootingPctg*100) }}% | {{ '%0.1f'|format(p.faceoffWinPctg*100) }}% |{% endfor %}
+| {{ p.playerName }} | {{ p.playerPositionCode }} | {{ p.gamesPlayed }} | {{ p.goals }} | {{ p.assists }} | {{ p.points }} | {{ p.plusMinus }} | {{ p.blockedShots }} | {{ p.hits }} | {{ p.penaltyMinutes }} | {{ p.atoi }} | {{ p.ppGoals }} | {{ p.ppAssists }} | {{ p.shots }} | {{ '%0.1f'|format(p.shootingPctg*100) }}% | {{ '%0.1f'|format(p.faceoffWinPctg*100) }}% | {{ '%0.1f'|format(p.corsiForPct) }}% | {{ '%0.1f'|format(p.fenwickForPct) }}% |{% endfor %}
 
 
 # [](##{{ team.abbreviation }}TINY)[]({{ team.subreddit }}) {{ team.name }} Goalie Stats

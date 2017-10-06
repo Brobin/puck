@@ -4,6 +4,7 @@ from puck.constants import (
     GOALIE_URL,
     SKATER_URL,
     SKATER_EXTRA_URL,
+    SKATER_SHOOTING_URL,
     TEAMS_URL,
     TEAM_TRANSLATION,
     TEAMS,
@@ -105,12 +106,16 @@ class Roster(object):
     def get_skaters(self):
         url = SKATER_URL.format(self.season, self.game_type, self.team_id)
         extra_url = SKATER_EXTRA_URL.format(self.season, self.game_type, self.team_id)
+        shooting_url = SKATER_SHOOTING_URL.format(self.season, self.game_type, self.team_id)
         data = requests.get(url).json()['data']
         extra_data = requests.get(extra_url).json()['data']
+        shooting_data = requests.get(shooting_url).json()['data']
 
         # combine the data from both enpoints into a dict of players
         players = {p['playerName']: p for p in data}
         for x in extra_data:
+            players[x['playerName']].update(x)
+        for x in shooting_data:
             players[x['playerName']].update(x)
 
         # turn our player dict back into a list
@@ -120,6 +125,8 @@ class Roster(object):
         for player in data:
             player['ppAssists'] = player['ppPoints'] - player['ppGoals']
             player['atoi'] = self.average_time_on_ice(player)
+            player['corsiForPct'] = self.corsi_for_pct(player)
+            player['fenwickForPct'] = self.fenwick_for_pct(player)
         return data
 
     def average_time_on_ice(self, player):
@@ -132,3 +139,11 @@ class Roster(object):
         url = GOALIE_URL.format(self.season, self.game_type, self.team_id)
         data = requests.get(url).json()['data']
         return data
+
+    def corsi_for_pct(self, player):
+        total = player['shotAttemptsFor'] + player['shotAttemptsAgainst']
+        return player['shotAttemptsFor'] / total * 100
+
+    def fenwick_for_pct(self, player):
+        total = player['unblockedShotAttemptsFor'] + player['unblockedShotAttemptsAgainst']
+        return player['unblockedShotAttemptsFor'] / total * 100

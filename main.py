@@ -9,7 +9,7 @@ from puck.lines import get_lines
 from puck.schedule import Schedule
 from puck.stats import NHL, Roster
 
-GET_LINES = False
+GET_LINES = True
 
 
 def main(team_id, outfile, season, game_type):
