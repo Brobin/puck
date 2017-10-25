@@ -5,6 +5,12 @@
 ## **Venue**: {{ g.venue }}
 ## **Broadcasts**: {{ g.broadcasts }}
 
+
+| [](##NHLTINY) | | GP | W | L | {% if not playoffs %}OT | P | ROW | P% |{% endif %} Diff | PP% | PK% | FOW% |
+|---|---|---|---|---|{% if not playoffs %}---|---|---|---|{% endif %}---|---|---|---|
+{% for t in nhl.teams %}{% if g.homeAbbrev == t.teamAbbrev %}{% include "_team_stat_line.md" %}{% endif %}{% endfor %}
+{% for t in nhl.teams %}{% if g.awayAbbrev == t.teamAbbrev %}{% include "_team_stat_line.md" %}{% endif %}{% endfor %}
+
 {% if lines %}Projected Lines
 
 | [](##MINTINY) | LW | C | RW | [](##MINTINY) | D | D | [](##MINTINY) | Goalie |
@@ -37,7 +43,7 @@
 # [](##{{ team.abbreviation }}TINY)[]({{ team.subreddit }}) {{ team.name }} Skater Stats
 
 | [](##{{ team.abbreviation }}TINY) []({{ team.subreddit }}) | Pos | GP | G | A | P | +/- | B | H | PIM | ATOI | PPG | PPA | S | S% | FOW% | CF% | FF% |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|{% for p in roster.skaters %}
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|{% for p in roster.skaters %}
 | {{ p.playerName }} | {{ p.playerPositionCode }} | {{ p.gamesPlayed }} | {{ p.goals }} | {{ p.assists }} | {{ p.points }} | {{ p.plusMinus }} | {{ p.blockedShots }} | {{ p.hits }} | {{ p.penaltyMinutes }} | {{ p.atoi }} | {{ p.ppGoals }} | {{ p.ppAssists }} | {{ p.shots }} | {{ '%0.1f'|format(p.shootingPctg*100) }}% | {{ '%0.1f'|format(p.faceoffWinPctg*100) }}% | {{ '%0.1f'|format(p.corsiForPct) }}% | {{ '%0.1f'|format(p.fenwickForPct) }}% |{% endfor %}
 
 
@@ -56,7 +62,7 @@
 
 | [](##NHLTINY) | | GP | W | L | {% if not playoffs %}OT | P | ROW | P% |{% endif %} Diff | PP% | PK% | FOW% |
 |---|---|---|---|---|{% if not playoffs %}---|---|---|---|{% endif %}---|---|---|---|{% for t in nhl.teams %}
-| [](##{{ t.teamAbbrev }}TINY)[]({{ t.subreddit }}) | {{ t.teamFullName }} | {{ t.gamesPlayed|int }} | {{ t.wins|int }} | {{ t.losses|int }} |{% if not playoffs %} {{ t.otLosses|int }} | {{ t.points|int }} | {{ t.regPlusOtWins|int }} | {{ '%0.3f'|format(t.pointPctg) }} |{% endif %} {{ t.diff|int }} | {{ '%0.1f'|format(t.ppPctg*100) }} | {{ '%0.1f'|format(t.pkPctg*100) }} | {{ '%0.1f'|format(t.faceoffWinPctg*100) }} |{% endfor %}
+{% include "_team_stat_line.md" %}{% endfor %}
 
 &nbsp;
 
