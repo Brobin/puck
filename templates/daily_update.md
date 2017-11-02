@@ -6,8 +6,8 @@
 ## **Broadcasts**: {{ g.broadcasts }}
 
 
-| [](##NHLTINY) | | GP | W | L | {% if not playoffs %}OT | P | ROW | P% |{% endif %} Diff | PP% | PK% | FOW% |
-|---|---|---|---|---|{% if not playoffs %}---|---|---|---|{% endif %}---|---|---|---|
+| [](##NHLTINY) | | GP | W | L | {% if not playoffs %}OT | P | ROW | P% |{% endif %} Diff | PP% | PK% | FOW% | CF% |
+|---|---|---|---|---|{% if not playoffs %}---|---|---|---|{% endif %}---|---|---|---|---|
 {% for t in nhl.teams %}{% if g.homeAbbrev == t.teamAbbrev %}{% include "_team_stat_line.md" %}{% endif %}{% endfor %}
 {% for t in nhl.teams %}{% if g.awayAbbrev == t.teamAbbrev %}{% include "_team_stat_line.md" %}{% endif %}{% endfor %}
 
@@ -49,9 +49,9 @@
 
 # [](##{{ team.abbreviation }}TINY)[]({{ team.subreddit }}) {{ team.name }} Goalie Stats
 
-| [](##{{ team.abbreviation }}TINY)[]({{ team.subreddit }}) | GP | W | L | {% if not playoffs %}OT |{% endif %} SV% | GAA | SO |
-|---|---|---|---|{% if not playoffs %}---|{% endif %}---|---|---|{% for g in roster.goalies %}
-| {{ g.playerName }} | {{ g.gamesPlayed }} | {{ g.wins }} | {{ g.losses }} | {% if not playoffs %}{{ g.otLosses }} |{% endif %} {{ '%0.3f'|format(g.savePctg) }} | {{ '%0.3f'|format(g.goalsAgainstAverage) }} | {{ g.shutouts }} |{% endfor %}
+| [](##{{ team.abbreviation }}TINY)[]({{ team.subreddit }}) | GP | W | L | {% if not playoffs %}OT | {% endif %}SV | SA | SV% | GAA | SO |
+|---|---|---|---|{% if not playoffs %}---|{% endif %}---|---|---|---|---|{% for g in roster.goalies %}
+| {{ g.playerName }} | {{ g.gamesPlayed }} | {{ g.wins }} | {{ g.losses }} | {% if not playoffs %}{{ g.otLosses }} |{% endif %} {{ g.saves }} | {{ g.shotsAgainst }} | {{ '%0.3f'|format(g.savePctg) }} | {{ '%0.3f'|format(g.goalsAgainstAverage) }} | {{ g.shutouts }} |{% endfor %}
 
 &nbsp;
 
@@ -60,8 +60,8 @@
 
 # [](##NHLTINY) NHL Team Stats
 
-| [](##NHLTINY) | | GP | W | L | {% if not playoffs %}OT | P | ROW | P% |{% endif %} Diff | PP% | PK% | FOW% |
-|---|---|---|---|---|{% if not playoffs %}---|---|---|---|{% endif %}---|---|---|---|{% for t in nhl.teams %}
+| [](##NHLTINY) | | GP | W | L | {% if not playoffs %}OT | P | ROW | P% |{% endif %} Diff | PP% | PK% | FOW% | CF% |
+|---|---|---|---|---|{% if not playoffs %}---|---|---|---|{% endif %}---|---|---|---|---|{% for t in nhl.teams %}
 {% include "_team_stat_line.md" %}{% endfor %}
 
 &nbsp;

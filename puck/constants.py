@@ -1,8 +1,9 @@
-TEAMS_URL = 'http://www.nhl.com/stats/rest/grouped/team/basic/season/teamsummary?cayenneExp=seasonId={0} and gameTypeId={1}'  # NOQA
-SKATER_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/basic/season/skatersummary?cayenneExp=seasonId={0} and gameTypeId={1} and teamId={2}'  # NOQA
-SKATER_EXTRA_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/basic/season/realtime?cayenneExp=seasonId={0} and gameTypeId={1} and teamId={2}'  # NOQA
-SKATER_SHOOTING_URL = 'http://www.nhl.com/stats/rest/grouped/skaters/shooting/season/skatersummaryshooting?cayenneExp=seasonId={0} and gameTypeId={1} and teamId={2}'  # NOQA
-GOALIE_URL = 'http://www.nhl.com/stats/rest/grouped/goalies/goalie_basic/season/goaliesummary?cayenneExp=seasonId={0} and gameTypeId={1} and playerPositionCode="G" and teamId={2}'  # NOQA
+TEAMS_URL = 'http://www.nhl.com/stats/rest/team?isAggregate=false&reportType=basic&isGame=false&reportName=teamsummary&cayenneExp=seasonId={0} and gameTypeId={1}'  # NOQA
+TEAMS_SHOOTING_URL = 'http://www.nhl.com/stats/rest/team?isAggregate=false&reportType=basic&isGame=false&reportName=teamsummaryshooting&cayenneExp=seasonId={0} and gameTypeId={1}'  # NOQA
+SKATER_URL = 'http://www.nhl.com/stats/rest/skaters?isAggregate=false&reportType=basic&isGame=false&reportName=skatersummary&cayenneExp=seasonId={0} and gameTypeId={1} and teamId={2}'  # NOQA
+SKATER_EXTRA_URL = 'http://www.nhl.com/stats/rest/skaters?isAggregate=false&reportType=basic&isGame=false&reportName=realtime&cayenneExp=seasonId={0} and gameTypeId={1} and teamId={2}'  # NOQA
+SKATER_SHOOTING_URL = 'http://www.nhl.com/stats/rest/skaters?isAggregate=false&reportType=shooting&isGame=false&reportName=skatersummaryshooting&cayenneExp=seasonId={0} and gameTypeId={1} and teamId={2}'  # NOQA
+GOALIE_URL = 'http://www.nhl.com/stats/rest/goalies?isAggregate=false&reportType=goalie_basic&isGame=false&reportName=goaliesummary&cayenneExp=seasonId={0} and gameTypeId={1} and playerPositionCode="G" and teamId={2}'  # NOQA
 SCHEDULE_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?expand=schedule.broadcasts.all,schedule.linescore&teamId={0}&startDate={1}&endDate={1}'  # NOQA
 
 TEAM_TRANSLATION = {
@@ -14,7 +15,7 @@ TEAM_TRANSLATION = {
 
 TEAMS = {
     1: {
-        'abbreviation': 'NJ',
+        'abbreviation': 'NJD',
         'name': 'New Jersey Devils',
         'subreddit': '/r/devils'
     },
@@ -74,7 +75,7 @@ TEAMS = {
         'subreddit': '/r/floridapanthers'
     },
     14: {
-        'abbreviation': 'TB',
+        'abbreviation': 'TBL',
         'name': 'Tampa Bay Lightning',
         'subreddit': '/r/tampabaylightning'
     },

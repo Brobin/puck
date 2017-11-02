@@ -14,7 +14,7 @@ def add_table_to_lines(prefix, table, lines):
         for td in tr:
             a = td.find('a')
             if a != -1:
-                name = a.contents[3]
+                name = a.find('img').find('br').contents[0]
                 last = ' ' .join(name.split(' ')[1:])
                 lines[key].append(last)
     return lines
