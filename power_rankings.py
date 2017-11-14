@@ -2,8 +2,8 @@ import requests
 from datetime import date, timedelta
 
 
-TEAMS_URL = 'http://www.nhl.com/stats/rest/grouped/team/basic/season/teamsummary?cayenneExp=seasonId={0} and gameTypeId={1}'  # NOQA
-URL = 'http://www.nhl.com/stats/rest/grouped/team/basic/game/teamsummary?cayenneExp=gameDate>="{0}" and gameDate<="{1}" and gameTypeId="2" and teamId={2}' # NOQA
+TEAMS_URL = 'http://www.nhl.com/stats/rest/team?isAggregate=false&reportType=basic&isGame=false&reportName=teamsummary&cayenneExp=seasonId={0} and gameTypeId={1}'  # NOQA
+URL = 'http://www.nhl.com/stats/rest/team?isAggregate=false&reportType=basic&isGame=true&reportName=teamsummary&cayenneExp=gameDate>="{0}" and gameDate<="{1}" and gameTypeId="2" and teamId={2}' # NOQA
 
 TEAMS = {
     1: 'NJD',
@@ -45,9 +45,8 @@ class NHLPowerRankings(object):
     def __init__(self):
         today = date.today()
         idx = (today.weekday() + 1) % 7
-        sunday = today - timedelta(idx) - timedelta(7)
         saturday = today - timedelta(idx - 6)
-        self.sunday = sunday.strftime('%Y-%m-%d')
+        self.sunday = '2017-10-04'
         self.saturday = saturday.strftime('%Y-%m-%d')
         self.teams = self.get_teams()
 
@@ -91,7 +90,7 @@ class NHLPowerRankings(object):
                     team['rp4'] -= opp_pctg
 
             team['rp'] = (team['rp1'] + team['rp2'] + team['rp3'] + team['rp4']) / 4.0
-                
+
             if len(data):
                 team['rp'] = team['rp'] / len(data)
                 team['rp1'] = team['rp1'] / len(data)
