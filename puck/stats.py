@@ -66,6 +66,11 @@ class NHL(object):
             if t['abbreviation'] == team['teamAbbrev']:
                 team['subreddit'] = t['subreddit']
                 return
+            else:
+                for ab, a in TEAM_TRANSLATION.items():
+                    if a == team['teamAbbrev'] and ab == t['abbreviation']:
+                        team['subreddit'] = t['subreddit']
+                        return
 
     def retrieve_data(self):
         # pull the stats from the API
