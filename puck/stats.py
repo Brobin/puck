@@ -57,8 +57,7 @@ class NHL(object):
         if playoffs:
             self.teams.sort(key=lambda x: x['wins'], reverse=True)
         else:
-            self.teams.sort(key=lambda x: x['points'], reverse=True)
-            self.teams.sort(key=lambda x: x['pointPctg'], reverse=True)
+            self.teams.sort(key=lambda x: (x['points'], x['pointPctg']), reverse=True)
         self.leader = self.get_league_leaders()
         self.teams = [self.leader] + self.teams
 
@@ -121,11 +120,8 @@ class Roster(object):
         url = SKATER_URL.format(self.season, self.game_type, self.team_id)
         extra_url = SKATER_EXTRA_URL.format(self.season, self.game_type, self.team_id)
         shooting_url = SKATER_SHOOTING_URL.format(self.season, self.game_type, self.team_id)
-        print(url)
         data = requests.get(url).json()['data']
-        print(extra_url)
         extra_data = requests.get(extra_url).json()['data']
-        print(shooting_url)
         shooting_data = requests.get(shooting_url).json()['data']
 
         # combine the data from both enpoints into a dict of players

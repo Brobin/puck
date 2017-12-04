@@ -14,6 +14,11 @@ TEAM_TRANSLATION = {
 }
 
 TEAMS = {
+    0: {
+        'abbreviation': 'NHL',
+        'name': 'NHL',
+        'subreddit': '/r/nhl',
+    },
     1: {
         'abbreviation': 'NJD',
         'name': 'New Jersey Devils',

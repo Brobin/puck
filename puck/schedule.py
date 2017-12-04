@@ -8,11 +8,15 @@ from puck.constants import SCHEDULE_URL, TEAMS
 
 class Schedule(object):
 
-    def __init__(self, team_id):
+    def __init__(self, team_id, weekly=False):
         self.team_id = team_id
 
         self.todays_game = self.get_todays_game()
         self.yesterdays_game = self.get_yesterdays_game()
+
+        if weekly:
+            self.last_weeks_games = self.get_last_weeks_games()
+            self.this_weeks_games = self.get_this_weeks_games()
 
     def get_todays_game(self):
         today = datetime.now()
@@ -21,6 +25,26 @@ class Schedule(object):
     def get_yesterdays_game(self):
         yesterday = datetime.now() - timedelta(days=1)
         return self.get_game_data(yesterday)
+
+    def get_last_weeks_games(self):
+        today = datetime.now()
+        games = []
+        for days in range(1, 8):
+            date = today - timedelta(days)
+            game = self.get_game_data(date)
+            if game:
+                games.append(game)
+        return reversed(games)
+
+    def get_this_weeks_games(self):
+        today = datetime.now()
+        games = []
+        for days in range(0, 7):
+            date = today + timedelta(days)
+            game = self.get_game_data(date)
+            if game:
+                games.append(game)
+        return games
 
     def get_game_data(self, game_datetime):
         game_date = game_datetime.strftime('%Y-%m-%d')
@@ -47,6 +71,7 @@ class Schedule(object):
         date = datetime.strptime(game_data['gameDate'], '%Y-%m-%dT%H:%M:%SZ')
         utc = timezone('UTC').localize(date)
         date = utc.astimezone(timezone('US/Central'))
-        game['puckDrop'] = date.strftime("%I:%M %p")
+        game['puckDrop'] = date.strftime("%-I:%M %p")
+        game['date'] = date.strftime("%a %B %-d, %Y")
         game['linescore'] = game_data['linescore']
         return game
